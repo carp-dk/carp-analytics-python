@@ -4,7 +4,7 @@ from folium.plugins import HeatMap
 from typing import Optional, List, Any, Set, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from ..reader import SleepinessData
+    from ..reader import CarpDataStream
 
 from rich.console import Console
 
@@ -17,7 +17,7 @@ class ParticipantVisualizer:
     Usage: sd.participant("email").visualize.location()
     """
     
-    def __init__(self, sleepiness_data: 'SleepinessData', deployment_ids: Set[str], email: str):
+    def __init__(self, sleepiness_data: 'CarpDataStream', deployment_ids: Set[str], email: str):
         self._sd = sleepiness_data
         self._deployment_ids = deployment_ids
         self._email = email
@@ -162,7 +162,7 @@ class ParticipantVisualizer:
 
 
 class LocationVisualizer:
-    def __init__(self, sd: 'SleepinessData'):
+    def __init__(self, sd: 'CarpDataStream'):
         self.sd = sd
 
     def _get_field(self, df: pd.DataFrame, candidates: List[str]) -> Optional[pd.Series]:
