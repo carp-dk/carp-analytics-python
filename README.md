@@ -19,8 +19,6 @@ A high-performance Python library for processing and analysing data from [CARP](
 
 ## Installation
 
-### Basic Installation
-
 ```bash
 pip install carp-analytics-python
 ```
@@ -192,9 +190,9 @@ Optional:
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
+2. Create your feature branch (`git checkout -b feature/featA`)
+3. Commit your changes (`git commit -m 'Add some featA'`)
+4. Push to the branch (`git push origin feature/featA`)
 5. Open a Pull Request
 
 ## Licence
