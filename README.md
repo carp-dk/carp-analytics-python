@@ -6,6 +6,9 @@
 
 A high-performance Python library for processing and analysing data from [CARP](https://carp.computerome.dk/) (Copenhagen Research Platform) studies.
 
+> [!BETA]
+> The CARP package is at the beta phase and the APIs and methods might change more often.
+
 ## Features
 
 - **Schema Discovery**: Automatically scans and infers the schema of the data
