@@ -4,18 +4,16 @@
 [![Python versions](https://img.shields.io/pypi/pyversions/carp-analytics-python.svg)](https://pypi.org/project/carp-analytics-python/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A high-performance Python library for processing and analysing data from [CARP](https://carp.dk/) (Copenhagen Research Platform) studies.
+A high-performance Python library for processing and analysing data from [CARP](https://carp.computerome.dk/) (Copenhagen Research Platform) studies.
 
 ## Features
 
-- **Streaming JSON Parsing**: Uses `ijson` to handle very large JSON files with minimal memory footprint
 - **Schema Discovery**: Automatically scans and infers the schema of the data
 - **Data Grouping**: Efficiently groups data by any field (e.g., data type, device ID) into separate files
 - **Parquet Export**: Convert JSON data to Parquet for faster subsequent analysis
 - **Participant Management**: Link and track participants across multiple study phases
 - **Visualization**: Generate location heatmaps and other visualizations
 - **Pandas Integration**: Seamlessly work with DataFrames
-- **Rich Terminal Output**: Beautiful progress bars and formatted tables
 
 ## Installation
 
