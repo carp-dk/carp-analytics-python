@@ -1051,6 +1051,7 @@ class CarpDataStream:
         )
 
     def _flush_buffer_to_parquet(self, name, buffer, writers, output_dir):
+        import pandas as pd
         import pyarrow as pa
         import pyarrow.parquet as pq
 
@@ -1058,36 +1059,35 @@ class CarpDataStream:
             return
 
         try:
-            # PyArrow's from_pylist is robust but might need explicit schema if types vary.
-            # We let it infer for now.
-            table = pa.Table.from_pylist(buffer)
+            # Flatten nested dicts into dot-separated columns (e.g. measurement.data.steps).
+            # This avoids PyArrow inferring empty struct types (like "metadata": {})
+            # which Parquet cannot represent, and also eliminates schema drift caused
+            # by nested fields appearing/disappearing across batches.
+            df = pd.json_normalize(buffer)
+            table = pa.Table.from_pandas(df)
         except Exception as e:
             console.print(f"[red]Error converting batch for {name}: {e}[/red]")
             return
 
         if name not in writers:
             file_path = output_dir / f"{name}.parquet"
-            # Use the schema from the first batch
             writers[name] = pq.ParquetWriter(file_path, table.schema)
 
         try:
-            # If the new batch has a different schema (e.g. missing fields or new fields),
-            # write_table might fail or produce a file with multiple schemas (which is bad).
-            # Ideally we should unify schemas, but that requires reading all data first.
-            # For now, we assume schema consistency or that PyArrow handles minor diffs.
-            # If strict schema validation fails, we might need to cast.
-
-            # Check if schema matches writer's schema
             if not table.schema.equals(writers[name].schema):
-                # Try to cast to the writer's schema
-                # This handles cases where a field is missing (null) or type promotion is needed
-                try:
-                    table = table.cast(writers[name].schema)
-                except Exception:
-                    # If casting fails, we might have a problem.
-                    # For now, log and skip or try to write anyway (which might fail)
-                    # console.print(f"[yellow]Schema mismatch for {name}. Attempting cast... {cast_error}[/yellow]")
-                    pass
+                # Unify schemas: merge the writer's existing schema with the new batch's
+                # schema so that columns present in either side are kept (new columns
+                # get nulls in earlier batches, missing columns get nulls here).
+                merged = pa.unify_schemas(
+                    [writers[name].schema, table.schema], promote_options="permissive"
+                )
+
+                # Reopen writer with the wider schema
+                writers[name].close()
+                file_path = output_dir / f"{name}.parquet"
+                writers[name] = pq.ParquetWriter(file_path, merged)
+
+                table = table.cast(merged)
 
             writers[name].write_table(table)
         except Exception as e:
