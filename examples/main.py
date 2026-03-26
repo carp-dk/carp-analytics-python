@@ -1,41 +1,49 @@
 #!/usr/bin/env python3
-"""
-Example script demonstrating basic usage of the carp-analytics-python library.
+"""End-to-end example usage for `CarpStudy`."""
 
-Run from the project root after installing the package:
-    python examples/main.py data/study/data-streams.json
-"""
+from __future__ import annotations
 
-from carp import CarpDataStream
 import sys
+from pathlib import Path
 
-def main():
-    file_path = "data/study/data-streams.json"
-    if len(sys.argv) > 1:
-        file_path = sys.argv[1]
-        
-    print(f"Loading {file_path}...")
-    data = CarpDataStream(file_path)
-    
-    # Scan and print schema
-    print("Scanning schema...")
-    data.print_schema()
-    
-    # Example: Grouping data by data type
-    # output_dir = "output_groups"
-    # print(f"Grouping data into {output_dir}...")
-    # data.group_by_field("dataStream.dataType.name", output_dir)
-
-    # Convert to Parquet
-    parquet_dir = "output_parquet"
-    data.convert_to_parquet(parquet_dir)
-    
-    # Load back as DataFrame
-    df = data.get_dataframe("dk.cachet.carp.stepcount", parquet_dir)
-    if df is not None:
-        print(f"Loaded {len(df)} stepcount records.")
-        print(df.head())
+from carp import CarpStudy
 
 
-if __name__ == '__main__':
-    main()
+def _default_paths() -> list[Path]:
+    """Return bundled study paths for the example."""
+
+    sleep_paths = sorted(Path("sleep-data").glob("phase-*/data-streams.json"))
+    if sleep_paths:
+        return sleep_paths
+    fixture_root = Path("tests/fixtures/multi_phase")
+    return sorted(fixture_root.glob("*/data-streams.json"))
+
+
+def main() -> int:
+    """Run the example against one or more study files."""
+
+    file_paths = [Path(arg) for arg in sys.argv[1:]] or _default_paths()
+    study = CarpStudy(file_paths, load_participants=True)
+    print(f"Loaded {len(file_paths)} study file(s)")
+    print(f"Total records: {study.records.count():,}")
+    print(f"Data types: {', '.join(study.records.data_types())}")
+    rows = study.participants.summary_rows()
+    print(f"Unified participants: {len(rows)}")
+    for row in rows[:3]:
+        print(f"  {row['unified_id']}: {row['emails']} ({row['deployments']} deployments)")
+    example_email = next((row["emails"] for row in rows if row["emails"] != "N/A"), None)
+    if example_email:
+        participant = study.participant(example_email)
+        print(f"Example participant: {participant.info()}")
+    try:
+        step_frame = study.frames.get_dataframe("dk.cachet.carp.stepcount")
+    except RuntimeError as exc:
+        print(f"Skipping dataframe example: {exc}")
+    else:
+        print("Step-count preview:")
+        print(step_frame.head().to_string(index=False))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

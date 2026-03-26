@@ -1,0 +1,46 @@
+[
+  {
+    "studyDeploymentId": "deploy-email-b",
+    "roles": [
+      {
+        "roleName": "Participant",
+        "data": {
+          "dk.carp.webservices.input.informed_consent": {
+            "signedTimestamp": "2024-01-02T00:00:00Z",
+            "userId": "user-email-b",
+            "name": "alice@example.com",
+            "consent": "{\"signature\": {\"firstName\": \"Alice\", \"lastName\": \"Example\"}}"
+          }
+        }
+      }
+    ],
+    "common": {}
+  },
+  {
+    "studyDeploymentId": "deploy-ssn-b",
+    "roles": [
+      {
+        "roleName": "Participant",
+        "data": {
+          "dk.carp.webservices.input.full_name": "Robert Example",
+          "dk.carp.webservices.input.ssn": {
+            "socialSecurityNumber": "1111"
+          }
+        }
+      }
+    ],
+    "common": {}
+  },
+  {
+    "studyDeploymentId": "deploy-name-b",
+    "roles": [
+      {
+        "roleName": "Participant",
+        "data": {
+          "dk.carp.webservices.input.full_name": "Charlie Example"
+        }
+      }
+    ],
+    "common": {}
+  }
+]

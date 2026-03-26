@@ -1,10 +1,5 @@
-"""
-Visualization module for CARP Analytics data.
+"""Plotting services for CARP studies."""
 
-This module provides visualization tools for participant location data,
-including heatmaps and geographic visualizations.
-"""
+from .service import PlotService
 
-from .map_viz import LocationVisualizer, ParticipantVisualizer
-
-__all__ = ["LocationVisualizer", "ParticipantVisualizer"]
+__all__ = ["PlotService"]

@@ -1,0 +1,109 @@
+[
+  {
+    "studyDeploymentId": "deploy-email-a",
+    "dataStream": {
+      "studyDeploymentId": "deploy-email-a",
+      "dataType": {
+        "namespace": "dk.cachet.carp",
+        "name": "stepcount"
+      },
+      "deviceRoleName": "Phone"
+    },
+    "measurement": {
+      "sensorStartTime": 1000,
+      "data": {
+        "steps": 100
+      }
+    },
+    "sequenceId": 1,
+    "syncPoint": 1,
+    "triggerIds": [],
+    "deviceRoleName": "Phone"
+  },
+  {
+    "studyDeploymentId": "deploy-email-a",
+    "dataStream": {
+      "studyDeploymentId": "deploy-email-a",
+      "dataType": {
+        "namespace": "dk.cachet.carp",
+        "name": "location"
+      },
+      "deviceRoleName": "Phone"
+    },
+    "measurement": {
+      "sensorStartTime": 1000,
+      "data": {
+        "latitude": 55.1,
+        "longitude": 12.1
+      }
+    },
+    "sequenceId": 2,
+    "syncPoint": 1,
+    "triggerIds": [],
+    "deviceRoleName": "Phone"
+  },
+  {
+    "studyDeploymentId": "deploy-ssn-a",
+    "dataStream": {
+      "studyDeploymentId": "deploy-ssn-a",
+      "dataType": {
+        "namespace": "dk.cachet.carp",
+        "name": "stepcount"
+      },
+      "deviceRoleName": "Phone"
+    },
+    "measurement": {
+      "sensorStartTime": 2000,
+      "data": {
+        "steps": 50
+      }
+    },
+    "sequenceId": 3,
+    "syncPoint": 1,
+    "triggerIds": [],
+    "deviceRoleName": "Phone"
+  },
+  {
+    "dataStream": {
+      "studyDeploymentId": "deploy-name-a",
+      "dataType": {
+        "namespace": "dk.cachet.carp",
+        "name": "survey"
+      },
+      "deviceRoleName": "Phone"
+    },
+    "measurement": {
+      "sensorStartTime": 3000,
+      "data": {
+        "response_json": "{\"score\": 3, \"tags\": [\"rested\", \"calm\"]}"
+      }
+    },
+    "sequenceId": 4,
+    "syncPoint": 1,
+    "triggerIds": [
+      "survey"
+    ],
+    "deviceRoleName": "Phone"
+  },
+  {
+    "studyDeploymentId": "deploy-unknown-a",
+    "dataStream": {
+      "studyDeploymentId": "deploy-unknown-a",
+      "dataType": {
+        "namespace": "com.acme",
+        "name": "stepcount"
+      },
+      "deviceRoleName": "Watch"
+    },
+    "measurement": {
+      "sensorStartTime": 4000,
+      "data": {
+        "steps": 9
+      }
+    },
+    "sequenceId": 5,
+    "syncPoint": 1,
+    "triggerIds": [],
+    "deviceRoleName": "Watch"
+  }
+]
