@@ -1,0 +1,133 @@
+[
+  {
+    "studyDeploymentId": "deploy-email-b",
+    "dataStream": {
+      "studyDeploymentId": "deploy-email-b",
+      "dataType": {
+        "namespace": "dk.cachet.carp",
+        "name": "stepcount"
+      },
+      "deviceRoleName": "Phone"
+    },
+    "measurement": {
+      "sensorStartTime": 5000,
+      "data": {
+        "steps": 150,
+        "cadence": 90
+      }
+    },
+    "sequenceId": 6,
+    "syncPoint": 1,
+    "triggerIds": [],
+    "deviceRoleName": "Phone"
+  },
+  {
+    "studyDeploymentId": "deploy-email-b",
+    "dataStream": {
+      "studyDeploymentId": "deploy-email-b",
+      "dataType": {
+        "namespace": "dk.cachet.carp",
+        "name": "location"
+      },
+      "deviceRoleName": "Phone"
+    },
+    "measurement": {
+      "sensorStartTime": 5000,
+      "data": {
+        "latitude": 55.2,
+        "longitude": 12.2
+      }
+    },
+    "sequenceId": 7,
+    "syncPoint": 1,
+    "triggerIds": [],
+    "deviceRoleName": "Phone"
+  },
+  {
+    "studyDeploymentId": "deploy-ssn-b",
+    "dataStream": {
+      "studyDeploymentId": "deploy-ssn-b",
+      "dataType": {
+        "namespace": "dk.cachet.carp",
+        "name": "stepcount"
+      },
+      "deviceRoleName": "Phone"
+    },
+    "measurement": {
+      "sensorStartTime": 6000,
+      "data": {
+        "steps": 70
+      }
+    },
+    "sequenceId": 8,
+    "syncPoint": 1,
+    "triggerIds": [],
+    "deviceRoleName": "Phone"
+  },
+  {
+    "studyDeploymentId": "deploy-name-b",
+    "dataStream": {
+      "studyDeploymentId": "deploy-name-b",
+      "dataType": {
+        "namespace": "dk.cachet.carp",
+        "name": "survey"
+      },
+      "deviceRoleName": "Phone"
+    },
+    "measurement": {
+      "sensorStartTime": 7000,
+      "data": {
+        "response_json": "{\"score\": 5}"
+      }
+    },
+    "sequenceId": 9,
+    "syncPoint": 1,
+    "triggerIds": [
+      "survey"
+    ],
+    "deviceRoleName": "Phone"
+  },
+  {
+    "studyDeploymentId": "deploy-name-b",
+    "dataStream": {
+      "studyDeploymentId": "deploy-name-b",
+      "dataType": {
+        "namespace": "dk.cachet.carp",
+        "name": "location"
+      },
+      "deviceRoleName": "Phone"
+    },
+    "measurement": {
+      "sensorStartTime": 7100,
+      "data": {
+        "latitude": 56.0,
+        "longitude": 13.0
+      }
+    },
+    "sequenceId": 10,
+    "syncPoint": 1,
+    "triggerIds": [],
+    "deviceRoleName": "Phone"
+  },
+  {
+    "studyDeploymentId": "deploy-orphan",
+    "dataStream": {
+      "studyDeploymentId": "deploy-orphan",
+      "dataType": {
+        "namespace": "dk.cachet.carp",
+        "name": "weather"
+      },
+      "deviceRoleName": "Phone"
+    },
+    "measurement": {
+      "sensorStartTime": 8000,
+      "data": {
+        "temperature": 21
+      }
+    },
+    "sequenceId": 11,
+    "syncPoint": 1,
+    "triggerIds": [],
+    "deviceRoleName": "Phone"
+  }
+]

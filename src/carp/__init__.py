@@ -1,20 +1,6 @@
-"""
-CARP Analytics Python - A high-performance library for processing CARP study data.
+"""Public package interface for CARP Analytics."""
 
-This library provides tools for streaming, processing, and analysing large JSON
-data streams from CARP (Copenhagen Research Platform) clinical and research studies.
-"""
+from .study import CarpStudy
 
-from .reader import CarpDataStream, ParticipantManager, ParticipantInfo, ParticipantAccessor
-
-__version__ = "0.1.0"
-__author__ = "Copenhagen Research Platform"
-__email__ = "support@carp.dk"
-
-__all__ = [
-    "CarpDataStream",
-    "ParticipantManager",
-    "ParticipantInfo",
-    "ParticipantAccessor",
-    "__version__",
-]
+__all__ = ["CarpStudy"]
+__version__ = "0.2.0"

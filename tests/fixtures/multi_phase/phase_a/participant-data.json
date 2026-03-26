@@ -1,0 +1,64 @@
+[
+  {
+    "studyDeploymentId": "deploy-email-a",
+    "roles": [
+      {
+        "roleName": "Participant",
+        "data": {
+          "dk.carp.webservices.input.full_name": {
+            "firstName": "Alice",
+            "lastName": "Example"
+          },
+          "dk.carp.webservices.input.informed_consent": {
+            "signedTimestamp": "2024-01-01T00:00:00Z",
+            "userId": "user-email-a",
+            "name": "alice@example.com",
+            "consent": "{\"signature\": {\"firstName\": \"Alice\", \"lastName\": \"Example\"}}"
+          }
+        }
+      }
+    ],
+    "common": {}
+  },
+  {
+    "studyDeploymentId": "deploy-ssn-a",
+    "roles": [
+      {
+        "roleName": "Participant",
+        "data": {
+          "dk.carp.webservices.input.full_name": "Bob Example",
+          "dk.carp.webservices.input.ssn": {
+            "socialSecurityNumber": "1111"
+          },
+          "dk.cachet.carp.input.sex": "male"
+        }
+      }
+    ],
+    "common": {}
+  },
+  {
+    "studyDeploymentId": "deploy-name-a",
+    "roles": [
+      {
+        "roleName": "Participant",
+        "data": {
+          "dk.carp.webservices.input.full_name": {
+            "firstName": "Charlie",
+            "lastName": "Example"
+          }
+        }
+      }
+    ],
+    "common": {}
+  },
+  {
+    "studyDeploymentId": "deploy-unknown-a",
+    "roles": [
+      {
+        "roleName": "Participant",
+        "data": {}
+      }
+    ],
+    "common": {}
+  }
+]

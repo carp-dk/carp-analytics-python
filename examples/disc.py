@@ -1,59 +1,38 @@
-# discover_schema.py
-import ijson
-from collections import defaultdict
-import yaml
+"""Compact schema-discovery example for `CarpStudy`."""
 
-def discover_schema(file_path):
-    schema = defaultdict(set)
+from __future__ import annotations
 
-    with open(file_path, 'rb') as f:
-        parser = ijson.parse(f)
-        current_path = []
-        for prefix, event, value in parser:
-            current_path = prefix.split('.')
-            full_path = '.'.join(current_path)
+import sys
+from pathlib import Path
 
-            if event == 'map_key':
-                current_path.append(value)
-                continue
-            elif event in ('start_map', 'start_array'):
-                pass
-            elif event in ('end_map', 'end_array'):
-                if current_path:
-                    current_path.pop()
-                continue
+from carp import CarpStudy
 
-            # leaf value
-            if value is None:
-                type_name = 'null'
-            elif event == 'string':
-                type_name = 'string'
-            elif event in ('number', 'integer'):
-                type_name = 'number'
-            elif event == 'boolean':
-                type_name = 'boolean'
-            else:
-                type_name = event
 
-            schema['.'.join(current_path)].add(type_name)
+def _default_paths() -> list[Path]:
+    """Return bundled data-stream files for schema discovery."""
 
-    # Convert to nice nested dict
-    nested = {}
-    for path, types in schema.items():
-        parts = path.split('.')
-        d = nested
-        for part in parts[:-1]:
-            if part not in d:
-                d[part] = {'_type': 'object', '_children': {}}
-            elif '_children' not in d[part]:
-                d[part]['_children'] = {}
-            d = d[part]['_children']
-        key = parts[-1]
-        d[key] = {'_type': list(types)} if len(types) > 1 else {'_type': list(types)[0]}
+    sleep_paths = sorted(Path("sleep-data").glob("phase-*/data-streams.json"))
+    if sleep_paths:
+        return sleep_paths
+    return sorted(Path("tests/fixtures/multi_phase").glob("*/data-streams.json"))
 
-    return nested
 
-if __name__ == '__main__':
-    import sys
-    schema = discover_schema(sys.argv[1])
-    print(yaml.dump(schema, default_flow_style=False, sort_keys=False))
+def main() -> int:
+    """Load a study and print schema and field examples."""
+
+    file_paths = [Path(arg) for arg in sys.argv[1:]] or _default_paths()
+    study = CarpStudy(file_paths, load_participants=False)
+    print("Observed data types:")
+    for data_type in study.records.data_types():
+        print(f"  - {data_type}")
+    print("\nSchema summary:")
+    for data_type, fields in study.schema.scan().items():
+        print(f"  {data_type}: {', '.join(fields)}")
+    print("\nSample field paths:")
+    for field in study.records.list_fields(sample_size=3)[:12]:
+        print(f"  - {field}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

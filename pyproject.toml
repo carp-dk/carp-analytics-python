@@ -80,6 +80,17 @@ dev = [
     "mypy>=1.5.0",
     "ruff>=0.1.0",
     "pre-commit>=3.4.0",
+    "sphinx>=8.1.3",
+    "sphinx-rtd-theme>=3.1.0",
+]
+test = [
+    "pandas>=2.0.0",
+    "pyarrow>=14.0.0",
+    "matplotlib>=3.7.0",
+    "folium>=0.14.0",
+]
+docs = [
+    "sphinx>=8.0.0",
 ]
 
 [build-system]
@@ -101,7 +112,10 @@ packages = ["src/carp"]
 
 [tool.ruff]
 target-version = "py310"
-line-length = 100
+line-length = 140
+extend-exclude = ["examples/demo.ipynb"]
+
+[tool.ruff.lint]
 select = [
     "E",   # pycodestyle errors
     "W",   # pycodestyle warnings
@@ -116,7 +130,7 @@ ignore = [
     "B008",  # do not perform function calls in argument defaults
 ]
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 known-first-party = ["carp"]
 
 [tool.mypy]
@@ -126,16 +140,25 @@ warn_unused_configs = true
 disallow_untyped_defs = true
 exclude = ["examples/", "tests/"]
 
+[[tool.mypy.overrides]]
+module = ["ijson", "pandas", "pyarrow", "pyarrow.*", "folium", "folium.*"]
+ignore_missing_imports = true
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
-addopts = "-v --tb=short"
+addopts = "-v --tb=short --cov=src/carp --cov-branch --cov-report=term-missing"
+markers = [
+    "real_data: optional tests that use local sleep-data when available",
+]
 
 [tool.coverage.run]
 source = ["src/carp"]
 branch = true
 
 [tool.coverage.report]
+fail_under = 100
+show_missing = true
 exclude_lines = [
     "pragma: no cover",
     "if TYPE_CHECKING:",
