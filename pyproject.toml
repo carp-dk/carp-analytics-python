@@ -1,6 +1,6 @@
 [project]
 name = "carp-analytics-python"
-version = "0.1.0"
+version = "0.2.0"
 description = "A high-performance Python library for processing and analysing data from CARP (Copenhagen Research Platform) clinical studies"
 readme = "README.md"
 license = "MIT"

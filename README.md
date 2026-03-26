@@ -54,19 +54,6 @@ python -m pip install sphinx sphinx-rtd-theme
 sphinx-build -b html docs docs/_build/html
 ```
 
-## Release Automation
-
-Pushing a new version tag triggers the release workflow. The tag must match the
-package version in `pyproject.toml` as either `0.1.0` or `v0.1.0`.
-
-The release workflow reruns tests, linting, type checks, docs builds, and
-package builds before it publishes the distributions to PyPI and attaches the
-same artifacts to a GitHub release.
-
-PyPI publishing uses GitHub Actions trusted publishing. Configure a trusted
-publisher on PyPI for this repository and the `release` workflow, with the
-`pypi` environment enabled in GitHub.
-
 ## Examples
 
 ```bash
